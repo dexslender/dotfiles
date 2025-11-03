@@ -15,9 +15,10 @@ return {
         end
     },
     {
-        'nvim-mini/mini.notify',
-        version = '*',
-        opts = {}
+        "j-hui/fidget.nvim",
+        opts = {
+            -- options
+        },
     },
     {
         "nvim-tree/nvim-tree.lua",
@@ -29,7 +30,8 @@ return {
         opts = {
             view = {
                 width = 30,
-            }
+            },
+            filters = { custom = { "^.git$" } },
         },
     },
     {
@@ -47,7 +49,6 @@ return {
         init = function() vim.cmd("colorscheme duskfox") end,
         opts = {
             options = {
-                transparent = true,
                 styles = {
                     comments = "italic",
                     keywords = "bold",
