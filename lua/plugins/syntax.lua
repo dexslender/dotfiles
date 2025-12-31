@@ -1,9 +1,4 @@
-local vue_plugin = {
-  name = '@vue/typescript-plugin',
-  location = '',
-  languages = { 'vue' },
-}
-local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
+local langs = require("config.langs")
 
 return {
     {
@@ -23,51 +18,16 @@ return {
         dependencies = {
             'saghen/blink.cmp',
         },
-        opts = {
-            servers = {
-                lua_ls = {
-                    settings = {
-                        Lua = {
-                            diagnostics = { globals = { 'vim' } },
-                        }
-                    }
-                },
-                gopls = {
-                    settings = {
-                        gopls = {
-                            analyses = { unusedparams = true },
-                            staticcheck = true,
-                            gofumpt = true,
-                            semanticTokens = true,
-                        }
-                    }
-                },
-                ts_ls = {
-                    cmd = { 'bunx', 'typescript-language-server', '--stdio' },
-                    init_options = {
-                        plugins = {
-                            vue_plugin
-                        },
-                    },
-                    filetypes = tsserver_filetypes,
-                },
-                vue_ls = {
-                    cmd = { 'bunx', '@vue/language-server', '--stdio' }
-                },
-                rust_analyzer = {},
-                yamlls = {},
-                taplo = {},
-                cssls = {},
-                jsonls = {},
-            }
-        },
+        opts = { servers = langs },
         config = function(_, opts)
             local capabilities = require('blink.cmp').get_lsp_capabilities()
             for server, config in pairs(opts.servers) do
-                capabilities.textDocument.completion.completionItem.snippetSupport = true
-                config.capabilities = capabilities
-                vim.lsp.config(server, config)
-                vim.lsp.enable(server)
+                if config.enabled == nil or config.enabled == true then
+                    capabilities.textDocument.completion.completionItem.snippetSupport = true
+                    config.capabilities = capabilities
+                    vim.lsp.config(server, config)
+                    vim.lsp.enable(server)
+                end
             end
 
             vim.api.nvim_create_autocmd('LspAttach', {
@@ -114,7 +74,7 @@ return {
                     -- Move to the next diagnostic
                     bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
-                    -- bufmap('n', '', '<cmd>lua vim.lsp.buf.format()<cr>')
+                    bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format()<cr>')
                 end
             })
         end
