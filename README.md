@@ -6,5 +6,5 @@ Heres's a list of things to add on this repo
 - [ ] Configs are separated in branches.
 - [ ] Arch Linux configs.
 - [ ] Void Linux configs.
-- [ ] Nvim exclusive configs.
+- [x] Nvim exclusive configs.
 - [ ] Useful software.
