@@ -2,14 +2,11 @@ local langs = require("config.langs")
 
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        branch = "main",
-        opts = {
-            sync_install = false,
-            highlight = { enable = true },
-            indent = { enable = true },
-        }
+        "romus204/tree-sitter-manager.nvim",
+        dependencies = {}, -- tree-sitter CLI must be installed system-wide
+        config = function()
+            require("tree-sitter-manager").setup()
+        end,
     },
     {
         'neovim/nvim-lspconfig',
@@ -78,11 +75,35 @@ return {
         end
     },
     {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        build = ":Copilot auth",
+        event = "InsertEnter",
+        enabled = false,
+        opts = {
+            suggestion = {
+                enabled = true,
+                auto_trigger = true,
+                debounce = 75,
+                keymap = {
+                    accept = "<M-l>",  -- Presiona Alt + l para aceptar la sugerencia completa
+                    next = "<M-]>",    -- Alt + ] para ver la siguiente opción
+                    prev = "<M-[>",    -- Alt + [ para ver la opción anterior
+                    dismiss = "<C-]>", -- Ctrl + ] para ocultar temporalmente
+                },
+            },
+            panel = { enabled = false },
+        },
+    },
+    {
         'saghen/blink.cmp',
         dependencies = { 'rafamadriz/friendly-snippets' },
         version = '1.*',
         opts = {
-            keymap = { preset = 'enter' }
+            keymap = { preset = 'enter' },
+            completion = {
+                ghost_text = { enabled = true }
+            },
         },
         opts_extend = { "sources.default" },
     },

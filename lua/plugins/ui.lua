@@ -14,6 +14,7 @@ local function open_win_config_func()
 end
 
 return {
+    'mfussenegger/nvim-jdtls',
     {
         'nvim-mini/mini.starter',
         version = '*',
@@ -31,7 +32,6 @@ return {
     },
     {
         'diogof146/java-project-creator.nvim',
-        enabled = false,
         dependencies = { 'MunifTanjim/nui.nvim' },     -- Optional but recommended for UI
         opts = {
             base_path = vim.fn.getcwd(),               -- Default path for new projects
@@ -97,16 +97,6 @@ return {
         version = '^1.0.0',
     },
     {
-        "scottmckendry/cyberdream.nvim",
-        -- init = function() vim.cmd("colorscheme cyberdream") end,
-        opts = {
-            italic_comments = true,
-            colors = {
-                bg_alt = "#ffffff"
-            },
-        }
-    },
-    {
         "EdenEast/nightfox.nvim",
         init = function() vim.cmd("colorscheme duskfox") end,
         opts = {
@@ -136,8 +126,8 @@ return {
             options = {
                 icons_enabled = true,
                 theme = 'auto',
-                component_separators = { left = '│', right = '│' },
-                section_separators = { left = '', right = '' },
+                component_separators = { left = '', right = '' },
+                section_separators = { left = '', right = '' },
                 disabled_filetypes = {
                     "dapui_stack",
                     "dapui_watches",

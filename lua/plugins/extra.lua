@@ -2,6 +2,7 @@ return {
     'wakatime/vim-wakatime',
     {
         'vyfor/cord.nvim',
+        enabled = false,
         build = ':Cord update',
         opts = {
             display = {
