@@ -14,7 +14,10 @@ local function open_win_config_func()
 end
 
 return {
-    'mfussenegger/nvim-jdtls',
+    {
+        'mfussenegger/nvim-jdtls',
+        ft = "java"
+    },
     {
         'nvim-mini/mini.starter',
         version = '*',
@@ -32,6 +35,7 @@ return {
     },
     {
         'diogof146/java-project-creator.nvim',
+        cmd = { 'JavaCreateProject', 'MavenCreateProject' },
         dependencies = { 'MunifTanjim/nui.nvim' },     -- Optional but recommended for UI
         opts = {
             base_path = vim.fn.getcwd(),               -- Default path for new projects
@@ -48,12 +52,13 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        event = "LspAttach",
         opts = {},
     },
     {
         "nvim-tree/nvim-tree.lua",
-        version = "*",
         lazy = false,
+        version = "*",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
@@ -78,6 +83,7 @@ return {
         -- optional for icon support
         lazy = true,
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        cmd = "FzfLua",
         -- or if using mini.icons/mini.nvim
         -- dependencies = { "nvim-mini/mini.icons" },
         ---@module "fzf-lua"
@@ -88,6 +94,7 @@ return {
     },
     {
         'romgrk/barbar.nvim',
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             'lewis6991/gitsigns.nvim',
             'nvim-tree/nvim-web-devicons',
@@ -179,4 +186,9 @@ return {
             extensions = {}
         }
     },
+    {
+        'xemptuous/sqlua.nvim',
+        cmd = 'SQLua',
+        config = function() require('sqlua').setup() end
+    }
 }

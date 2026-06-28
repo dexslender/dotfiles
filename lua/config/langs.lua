@@ -1,10 +1,3 @@
-local vue_plugin = {
-    name = '@vue/typescript-plugin',
-    location = '',
-    languages = { 'vue' },
-}
-local tsserver_filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }
-
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local workspace_dir = vim.fn.stdpath('data') .. '/jdtls-workspaces/' .. project_name
 
@@ -12,32 +5,22 @@ return {
     lua_ls = {
         settings = {
             Lua = {
+                runtime = {
+                    version = 'LuaJIT'
+                },
                 diagnostics = { globals = { 'vim' } },
+
+                workspace = {
+                    checkThirdParty = false,
+                    library = {
+                        vim.env.VIMRUNTIME,
+                        vim.fn.expand("~/.local/share/nvim/lazy/fzf-lua")
+                    }
+                }
             }
         }
     },
-    gopls = {
-        settings = {
-            gopls = {
-                analyses = { unusedparams = true },
-                staticcheck = true,
-                gofumpt = true,
-                semanticTokens = true,
-            }
-        }
-    },
-    ts_ls = {
-        cmd = { 'bunx', 'typescript-language-server', '--stdio' },
-        init_options = {
-            plugins = {
-                vue_plugin
-            },
-        },
-        filetypes = tsserver_filetypes,
-    },
-    vue_ls = {
-        cmd = { 'bunx', '@vue/language-server', '--stdio' }
-    },
+    ts_ls = {},
     rust_analyzer = {},
     qmlls = {
         cmd = { "qmlls6" }
@@ -51,13 +34,20 @@ return {
             bundles = {
                 vim.fn.glob(
                     "/home/dexslender/devtools/vscjava/extension/server/com.microsoft.java.debug.plugin-*.jar",
-                    1)
+                    true)
             }
         }
     },
     yamlls = {},
-    taplo = {},
     cssls = {},
     jsonls = {},
-    clangd = {},
+    lemminx = {
+        settings = {
+            xml = {
+                format = {
+                    enabled = true,
+                }
+            }
+        }
+    }
 }

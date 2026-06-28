@@ -3,13 +3,18 @@ local langs = require("config.langs")
 return {
     {
         "romus204/tree-sitter-manager.nvim",
+        cmd = {
+            "TSInstall",
+            "TSManager",
+            "TSUninstall",
+            "TSUpdate",
+        },
         dependencies = {}, -- tree-sitter CLI must be installed system-wide
-        config = function()
-            require("tree-sitter-manager").setup()
-        end,
+        config = true,
     },
     {
         'neovim/nvim-lspconfig',
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             'saghen/blink.cmp',
         },
@@ -78,8 +83,7 @@ return {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
         build = ":Copilot auth",
-        event = "InsertEnter",
-        enabled = false,
+        -- event = "InsertEnter",
         opts = {
             suggestion = {
                 enabled = true,
@@ -97,6 +101,7 @@ return {
     },
     {
         'saghen/blink.cmp',
+        lazy = true,
         dependencies = { 'rafamadriz/friendly-snippets' },
         version = '1.*',
         opts = {
@@ -110,13 +115,11 @@ return {
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
-        lazy = true,
         config = true,
     },
     {
         'numToStr/Comment.nvim',
         config = true,
         keys = { { "gcc", desc = "Comment current line" }, { "gc", mode = "v", desc = "Comment selected text" } },
-        lazy = true,
     }
 }

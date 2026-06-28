@@ -1,7 +1,7 @@
 return {
     {
         'mfussenegger/nvim-dap',
-        lazy = false,
+        cmd = 'DapNew',
         dependencies = {
             'rcarriga/nvim-dap-ui',
             'nvim-neotest/nvim-nio',
