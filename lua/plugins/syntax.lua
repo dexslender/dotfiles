@@ -3,12 +3,7 @@ local langs = require("config.langs")
 return {
     {
         "romus204/tree-sitter-manager.nvim",
-        cmd = {
-            "TSInstall",
-            "TSManager",
-            "TSUninstall",
-            "TSUpdate",
-        },
+        event  = { "BufReadPost", "BufNewFile" },
         dependencies = {}, -- tree-sitter CLI must be installed system-wide
         config = true,
     },
